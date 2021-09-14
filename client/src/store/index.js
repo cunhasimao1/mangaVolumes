@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchSagas({ commit }) {
-      let { data } = await axios.get("/api/sagas");
+      let { data } = await axios.get("api/sagas");
 
       commit("setSagas", data);
     },
@@ -31,7 +31,7 @@ export default new Vuex.Store({
 
         console.log(selected_saga)
 
-        let {data} = await axios.post(`/api/sagas/${selected_saga._id}/volumes`, obj.volumes[0]);
+        let {data} = await axios.post(`api/sagas/${selected_saga._id}/volumes`, obj.volumes[0]);
 
         console.log(data)
 
@@ -42,7 +42,7 @@ export default new Vuex.Store({
           volumes: obj.volumes,
         };
 
-        await axios.post(`/api/sagas`, newSaga);
+        await axios.post(`api/sagas`, newSaga);
 
         dispatch("fetchSagas");
       }

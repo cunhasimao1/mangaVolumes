@@ -71,7 +71,7 @@ export default {
     async submit() {
       this.submitText("...", "yellow");
       try {
-        let { data } = await axios.get("/api/imgbb/key");
+        let { data } = await axios.get("api/imgbb/key");
         const apiKey = data.api_key;
 
         let form = new FormData();
