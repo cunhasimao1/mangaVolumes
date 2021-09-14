@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
-  .connect(process.env.mongoURI, {
+  .connect(process.env.mongoURI_ATLAS, {
     auth: {
       user: process.env.mongoUSER,
       password: process.env.mongoPASSWORD,
@@ -24,6 +24,12 @@ mongoose
   .then(() => console.log("Connected to DB..."))
   .catch((err) => console.log(err));
 // mongoose.set('debug', true);
+
+app.get("/api/imgbb/key", (req, res) => {
+  res.json({
+    api_key: process.env.imgbbApiKey
+  })
+});
 
 app.use("/api/sagas", require("./routes/api/sagas/sagas"));
 app.use("/api/sagas/:idSaga/volumes", require("./routes/api/sagas/volumes/volumes"));

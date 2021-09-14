@@ -1,32 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Header />
+    <router-view />
   </div>
 </template>
 
+<script>
+import Header from "@/components/Header";
+import { mapActions } from "vuex";
+
+export default {
+  components: {
+    Header,
+  },
+  methods: {
+    ...mapActions(["fetchSagas"]),
+  },
+  async created() {
+    this.fetchSagas();
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
 }
 
-#nav {
-  padding: 30px;
+body {
+  background-color: #000;
+  height: 100vh;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.view {
+  position: relative;
+  text-align: center;
+  height: 100%;
 }
 </style>

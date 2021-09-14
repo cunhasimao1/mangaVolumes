@@ -1,18 +1,33 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="view home grid">
+    <Saga v-for="saga in sagas" :key="saga._id" :saga="saga" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import Saga from "@/components/Saga.vue";
+import { mapGetters } from "vuex";
 export default {
-  name: 'Home',
+  name: "Home",
+  computed: mapGetters(["sagas"]),
   components: {
-    HelloWorld
-  }
-}
+    Saga,
+  },
+};
 </script>
+
+<style lang="scss" scoped>
+.home {
+  padding: 20px 50px;
+}
+img {
+  width: 100%;
+}
+.grid {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: space-between;
+  grid-gap: 30px;
+}
+</style>
