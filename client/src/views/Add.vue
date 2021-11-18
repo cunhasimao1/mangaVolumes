@@ -1,5 +1,5 @@
 <template>
-  <div class="add">
+  <div class="view add">
     <!-- <form action="post" @submit.prevent="submit"> -->
     <form action="post">
       <section class="cover">

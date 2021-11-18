@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
       $group: {
         _id: "$_id",
         name: { $first: "$name" },
+        info: { $first: "$info" },
         volumes: { $push: "$volumes" },
       },
     },

@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
+  // .connect(process.env.mongoURI, {
   .connect(process.env.mongoURI_ATLAS, {
     auth: {
       user: process.env.mongoUSER,

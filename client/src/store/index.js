@@ -8,14 +8,16 @@ export default new Vuex.Store({
   state: {
     sagas: [],
     manga: {},
+    stats: {},
   },
   getters: {
     sagas: (state) => state.sagas,
     manga: (state) => state.manga,
+    stats: (state) => state.stats,
   },
   actions: {
-    async fetchSagas({ commit }) {
-      let { data } = await axios.get("api/sagas");
+    async fetchSagas({ commit, dispatch }) {
+      let { data } = await axios.get("/api/sagas");
 
       commit("setSagas", data);
     },
@@ -25,15 +27,11 @@ export default new Vuex.Store({
       commit("setManga", manga);
     },
     async addNew({ state, dispatch }, obj) {
-      console.log(obj, state.sagas)
+      console.log(obj, state.sagas);
       if (!obj.newSaga) {
         let selected_saga = state.sagas.find((saga) => saga.name == obj.name);
 
-        console.log(selected_saga)
-
-        let {data} = await axios.post(`api/sagas/${selected_saga._id}/volumes`, obj.volumes[0]);
-
-        console.log(data)
+        let { data } = await axios.post(`/api/sagas/${selected_saga._id}/volumes`, obj.volumes[0]);
 
         dispatch("fetchSagas");
       } else {
@@ -42,14 +40,28 @@ export default new Vuex.Store({
           volumes: obj.volumes,
         };
 
-        await axios.post(`api/sagas`, newSaga);
+        await axios.post(`/api/sagas`, newSaga);
 
         dispatch("fetchSagas");
       }
+    },
+    async getStats({ state }) {
+      let sagas = state.sagas;
+      const stats = {
+        volumes: {
+          total: sagas.reduce((prev, cur) => prev + cur.volumes.length, 0),
+          saga: {},
+        },
+      };
+      sagas.forEach((s) => {
+        stats.volumes.saga[s.name] = s.volumes.length;
+      });
+      console.log(stats.volumes);
     },
   },
   mutations: {
     setSagas: (state, sagas) => (state.sagas = sagas),
     setManga: (state, manga) => (state.manga = manga),
+    setStats: (state, stats) => (state.stats = stats),
   },
 });

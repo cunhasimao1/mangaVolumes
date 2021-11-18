@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <router-view />
+    <router-view v-if="hasLoadedData" />
   </div>
 </template>
 
@@ -14,10 +14,16 @@ export default {
     Header,
   },
   methods: {
-    ...mapActions(["fetchSagas"]),
+    ...mapActions(["fetchSagas", "getStats"]),
+  },
+  data() {
+    return {
+      hasLoadedData: false,
+    };
   },
   async created() {
-    this.fetchSagas();
+    await this.fetchSagas();
+    this.hasLoadedData = true;
   },
 };
 </script>

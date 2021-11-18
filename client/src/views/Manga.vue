@@ -1,6 +1,13 @@
 <template>
   <div class="view manga">
     <h1>{{ manga.name }}</h1>
+    <div class="manga-info" v-if="manga.info">
+      {{manga.info.publisher}}
+      {{manga.info.year}}
+      <pre>{{manga.info.description}}</pre>
+      {{manga.info.state}}
+      {{manga.info.isUpdated}}
+    </div>
     <div class="grid">
       <img v-for="volume in manga.volumes" :key="volume._id" :src="volume.image" :alt="volume.volume" />
     </div>
@@ -14,7 +21,7 @@ export default {
   name: "Manga",
   computed: mapGetters(["manga"]),
   methods: mapActions(["getManga"]),
-  mounted() {
+  async created() {
     this.getManga(this.$route.params.id);
   },
 };
@@ -35,4 +42,9 @@ img {
   align-items: center;
   grid-gap: 30px;
 }
+pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+
 </style>
