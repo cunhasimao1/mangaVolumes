@@ -78,7 +78,7 @@ export default {
         form.append("image", this.$refs.upload_cover.files[0]);
         form.append("text", "formText");
 
-        console.log(form);
+        // console.log(form);
 
         // let { data: imgbb } = await axios({
         //   url: `https://api.imgbb.com/1/upload?key=${apiKey}`,
@@ -93,7 +93,7 @@ export default {
 
         let imgbb = await res.json();
 
-        console.log(imgbb);
+        // console.log(imgbb);
 
         await this.addNew({
           newSaga: this.select == "!!new saga!!" && this.newSaga.length > 0,

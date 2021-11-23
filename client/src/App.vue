@@ -14,7 +14,7 @@ export default {
     Header,
   },
   methods: {
-    ...mapActions(["fetchSagas", "getStats"]),
+    ...mapActions(["fetchSagas"]),
   },
   data() {
     return {

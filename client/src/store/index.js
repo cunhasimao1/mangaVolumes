@@ -27,7 +27,7 @@ export default new Vuex.Store({
       commit("setManga", manga);
     },
     async addNew({ state, dispatch }, obj) {
-      console.log(obj, state.sagas);
+      // console.log(obj, state.sagas);
       if (!obj.newSaga) {
         let selected_saga = state.sagas.find((saga) => saga.name == obj.name);
 
@@ -56,7 +56,7 @@ export default new Vuex.Store({
       sagas.forEach((s) => {
         stats.volumes.saga[s.name] = s.volumes.length;
       });
-      console.log(stats.volumes);
+      // console.log(stats.volumes);
     },
   },
   mutations: {
